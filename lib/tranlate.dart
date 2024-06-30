@@ -16,24 +16,56 @@ class Translate extends StatelessWidget {
           ),
         ),
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(20.0),
+      body: Padding(
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
             Expanded(
-              child: Column(
-                children: [
-                  Text(
-                    'Translate the video to sign language'
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  color: Colors.grey[300],
+                ),
+                width: double.infinity,
+                child: const Padding(
+                  padding: EdgeInsets.all(20.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Translate the video to sign language'
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
+            ),
+            const SizedBox(
+              height: 20.0,
             ),
             Expanded(
               child: Column(
                 children: [
-                  Text(
+                  const Text(
                       'Translate the video to text'
+                  ),
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10.0),
+                      border: Border.all(
+                        color: Colors.green[300]!,
+                      ),
+                    ),
+                    width: double.infinity,
+                    child: const Padding(
+                      padding: EdgeInsets.all(20.0),
+                      child: Text(
+                          ''
+                      ),
+                    ),
                   ),
                 ],
               ),

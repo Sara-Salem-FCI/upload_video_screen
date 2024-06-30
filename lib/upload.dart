@@ -34,55 +34,60 @@ pickVideo() async {
           icon: const Icon(Icons.arrow_back),
           onPressed: () {},
         ),
-        actions: const [
+        actions: [
           Text(
             'Videos',
             style: TextStyle(
-              color: Colors.orange,
+              color: Colors.orange[300],
               fontSize: 20,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             width: 10,
           )
         ],
       ),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            MaterialButton(
-              color: Colors.greenAccent,
-              onPressed: (){
-                pickVideo();
-              },
-              child: const Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'Choose video',
-                  ),
-                  Icon(Icons.upload),
-                ],
+      body: Container(
+        color: Colors.grey[300],
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              MaterialButton(
+                color: Colors.greenAccent,
+                onPressed: (){
+                  pickVideo();
+                },
+                child: const Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'Choose video',
+                    ),
+                    Icon(Icons.upload),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 50,),
-            uploaded && pressed? MaterialButton(
-              color: Colors.greenAccent,
-              onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=> const Translate()));
-                setState(() {
-                  pressed=false;
-                  uploaded=false;
-                });
-              },
-              child: const Text(
-                'Continue',
-              ),
-            ): const SizedBox(),
-            pressed && !uploaded? const CircularProgressIndicator()
-                : const SizedBox(),
-          ],
+              const SizedBox(height: 50,),
+              uploaded && pressed? const Text('video Uploaded successfully') : const SizedBox(),
+              const SizedBox(height: 50,),
+              uploaded && pressed? MaterialButton(
+                color: Colors.greenAccent,
+                onPressed: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=> const Translate()));
+                  setState(() {
+                    pressed=false;
+                    uploaded=false;
+                  });
+                },
+                child: const Text(
+                  'Continue',
+                ),
+              ): const SizedBox(),
+              pressed && !uploaded? const CircularProgressIndicator()
+                  : const SizedBox(),
+            ],
+          ),
         ),
       ),
     );
