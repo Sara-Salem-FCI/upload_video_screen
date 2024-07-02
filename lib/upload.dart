@@ -107,7 +107,10 @@ pickVideo() async {
               uploaded && pressed? const Text('video Uploaded successfully') : const SizedBox(),
               const SizedBox(height: 50,),
               uploaded && pressed? MaterialButton(
-                color: Colors.greenAccent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                color: const Color(0xff649192),
                 onPressed: (){
                   Navigator.push(context, MaterialPageRoute(builder: (context)=> const Translate()));
                   setState(() {
@@ -117,6 +120,10 @@ pickVideo() async {
                 },
                 child: const Text(
                   'Continue',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                  ),
                 ),
               ): const SizedBox(),
               pressed && !uploaded? Slider(value: 0, onChanged: (value){
