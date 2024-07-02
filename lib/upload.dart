@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:untitled/tranlate.dart';
+import 'package:video_player/video_player.dart';
 
 class UploadVid extends StatefulWidget {
   const UploadVid({super.key});
@@ -12,9 +13,11 @@ class UploadVid extends StatefulWidget {
 }
 
 class _UploadVidState extends State<UploadVid> {
+  late VideoPlayerController videoPlayerController;
 late File video;
 bool uploaded=false;
 bool pressed=false;
+late double sliderValue;
 final picker = ImagePicker();
 pickVideo() async {
   setState(() {
@@ -22,39 +25,63 @@ pickVideo() async {
   });
   final vid = await picker.pickVideo(source: ImageSource.gallery);
   video = File(vid!.path);
+  int videoSizeInBytes = await video.length();
+
+// Convert to kilobytes (optional)
+  double videoSizeInKB = videoSizeInBytes / 1024;
+
+// Convert to megabytes (optional)
+  double videoSizeInMB = videoSizeInBytes / (1024 * 1024);
+  sliderValue=videoSizeInMB;
+
+  // videoPlayerController = VideoPlayerController.file(video)
+  //   ..initialize().then((_) {
+  //     setState(() {});
+  //     videoPlayerController.play();
+  //   });
   setState(() {
     uploaded=true;
   });
 }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: const Icon(
+              Icons.arrow_back,
+            size: 28,
+          ),
           onPressed: () {},
         ),
-        actions: [
+        actions: const [
           Text(
             'Videos',
             style: TextStyle(
-              color: Colors.orange[300],
+              color: Color(0xffA86434),
               fontSize: 20,
+              fontWeight: FontWeight.w600,
             ),
           ),
-          const SizedBox(
+          SizedBox(
             width: 10,
           )
         ],
       ),
       body: Container(
-        color: Colors.grey[300],
+        color: const Color(0xffF3F4F9),
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               MaterialButton(
-                color: Colors.greenAccent,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                minWidth: 290,
+                height: 82,
+                color: const Color(0xff649192),
                 onPressed: (){
                   pickVideo();
                 },
@@ -62,9 +89,17 @@ pickVideo() async {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Choose video',
+                      'Choose video ',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                      ),
                     ),
-                    Icon(Icons.upload),
+                    Icon(
+                        Icons.upload,
+                      color: Colors.white,
+                      size: 28,
+                    ),
                   ],
                 ),
               ),
@@ -84,7 +119,9 @@ pickVideo() async {
                   'Continue',
                 ),
               ): const SizedBox(),
-              pressed && !uploaded? const CircularProgressIndicator()
+              pressed && !uploaded? Slider(value: 0, onChanged: (value){
+
+              })
                   : const SizedBox(),
             ],
           ),
